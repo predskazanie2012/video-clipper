@@ -1,0 +1,76 @@
+# === Video Clipper — зависимости Python ===
+# Установка: pip install -r requirements.txt
+#
+# ВАЖНО: перед установкой убедитесь, что PyTorch установлен
+# с поддержкой CUDA для вашей видеокарты:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+#
+# FFmpeg должен быть установлен отдельно и доступен в PATH:
+#   https://ffmpeg.org/download.html
+
+# --- Ядро ---
+pyyaml==6.0.3
+python-dotenv==1.2.3
+rich==15.0.0
+tqdm
+pytz
+
+# --- Web UI ---
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-multipart==0.0.32
+openpyxl==3.1.5
+
+# --- Скачивание YouTube (Модуль 1) ---
+yt-dlp==2026.8.19
+
+# --- Транскрипция (Модуль 2) ---
+# faster-whisper: 4-8x быстрее openai-whisper, встроенный VAD
+faster-whisper
+# транслитерация скриптов (хинди/урду → деванагари и др.)
+indic-transliteration
+
+# --- Разделение аудио (Модуль 3) ---
+demucs
+
+# --- Генерация фонового аудио (Модуль 3) ---
+# Optional MusicGen is documented in OPTIONAL-MODELS.md.
+
+# --- Аудио-обработка ---
+pydub==0.25.1
+
+# --- Субтитры (Модуль 5) ---
+pysubs2==1.9.0
+
+# --- Кадрирование — face tracking (Модуль 6) ---
+opencv-python==5.0.0.93
+# 0.10.15+ в нашем окружении может идти без mp.solutions (только tasks),
+# а cropper.py использует mp.solutions.face_detection
+# Optional face detection is excluded from the default install.
+# С mediapipe 0.10.14 нужен protobuf 4.x (иначе ломается mp.solutions)
+# The core has no legacy protobuf pin.
+
+# --- LLM — выбор клипов + метаданные (Модули 2, 7) ---
+openai==3.13.0
+
+# --- Перевод текста (Модуль 4) ---
+requests==2.34.2
+google-cloud-translate==3.27.0
+
+# --- Озвучка TTS (Модуль 4) ---
+google-cloud-texttospeech==2.37.0
+
+# --- YouTube API (Модуль 8) ---
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+
+# --- Планировщик (Модуль 8) ---
+apscheduler==3.11.3
+
+tzlocal==5.4.4
+
+# --- PyTorch (для Whisper, Demucs, MusicGen) ---
+# Устанавливайте вручную с нужной версией CUDA:
+# torch
+# torchaudio

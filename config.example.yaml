@@ -1,0 +1,94 @@
+source_lang: en
+target_langs:
+- en
+clip:
+  max_duration: 60
+  min_duration: 20
+  max_clips_per_video: 3
+  overlap_buffer: 0.5
+download:
+  yt_dlp_format: ''
+  max_download_heights:
+  - 2160
+  - 1440
+  - 1080
+  - 720
+  merge_output_format: mkv
+  extractor_args: ''
+  format_sort_force: res,fps,br
+  concurrent_fragments: 8
+crop:
+  mode: center
+  width: 1080
+  height: 1920
+  min_vertical_pan_fraction: 0.1
+  template_bg_color: '#1a1a2e'
+video_encode:
+  lossless_intermediate: true
+  cut_x264_preset: veryslow
+  cut_x264_crf: 15
+  crop_x264_preset: veryslow
+  crop_x264_crf: 14
+  burn_x264_preset: veryslow
+  burn_x264_crf: 12
+  burn_x264_tune: film
+subtitles:
+  preset: mozi
+  per_clip_whisper: true
+audio:
+  replace_background: false
+  background_prompt: 'dark ambient documentary texture, slow evolving drone, no melody,
+    no drums, unsettling atmosphere
+
+    '
+  ducking:
+    duck_db: -15
+    boost_db: 6
+    threshold_db: -35
+    chunk_ms: 500
+llm:
+  model: gpt-4o-mini
+  clip_selection_prompt: 'Select up to {max_clips} complete, non-overlapping segments
+    of {min_duration} to {max_duration} seconds. Return JSON with a clips array of
+    start_time, end_time, hook and reason. Transcript: {transcript_with_times}'
+  metadata_prompt: 'Write a factual video title, description and tags in {lang}. Use
+    this transcript: {transcript}. Return JSON with title, description and tags.'
+translation:
+  primary_backend: deepl
+  fallback_backend: google
+tts:
+  audio_encoding: LINEAR16
+  sample_rate: 24000
+  voices:
+    en: en-US-Chirp3-HD-Leda
+    ru: ru-RU-Chirp3-HD-Leda
+    fr: fr-FR-Chirp3-HD-Algenib
+    de: de-DE-Chirp3-HD-Leda
+    es: es-ES-Chirp3-HD-Leda
+    pt: pt-BR-Chirp3-HD-Leda
+    it: it-IT-Chirp3-HD-Leda
+    zh: cmn-CN-Chirp3-HD-Leda
+    ja: ja-JP-Chirp3-HD-Leda
+    ko: ko-KR-Chirp3-HD-Leda
+    ar: ar-XA-Chirp3-HD-Leda
+    hi: hi-IN-Chirp3-HD-Leda
+    tr: tr-TR-Chirp3-HD-Leda
+whisper:
+  model: base
+  device: cpu
+  word_timestamps: true
+demucs:
+  model: htdemucs
+  device: cpu
+musicgen:
+  model: facebook/musicgen-melody
+  device: cpu
+  max_segment_duration: 30
+channels: {}
+account_groups: {}
+cleanup:
+  enabled: false
+youtube:
+  uploads_enabled: false
+  scheduler_enabled: false
+google_accounts: {}
